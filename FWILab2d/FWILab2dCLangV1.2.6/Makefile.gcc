@@ -1,0 +1,62 @@
+############################################################
+#                gcc version of Makefile
+############################################################
+CC = gcc
+BUILD_DIR = ./build
+BIN_DIR = ./bin
+SRC_DIR = ./src
+MAIN_DIR = ./main
+
+# if $FFTWROOT and $CWPROOT are not set, you can set it here
+FFTWROOT=/usr/share/fftw-3.3.10_gcc
+CWPROOT=/home/yao/su_gcc
+
+# Find all main source files
+MAIN_SRCS = $(wildcard $(MAIN_DIR)/*.c)
+EXES = $(patsubst $(MAIN_DIR)/%.c, $(BIN_DIR)/%.exe, $(MAIN_SRCS))
+
+# Common source files (excluding main files)
+SRC = $(wildcard $(SRC_DIR)/*.c)
+COMMON_OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
+MAIN_OBJS = $(patsubst $(MAIN_DIR)/%.c, $(BUILD_DIR)/%.main.o, $(MAIN_SRCS))
+
+# Includes & Libraries
+INC = -I $(CWPROOT)/include -I ${FFTWROOT}/include -I ./include
+LIB = -L $(CWPROOT)/lib -L ${FFTWROOT}/lib
+
+# OPTIC = -g
+CFLAGS = -Wall -std=c99 -fopenmp -fPIE -O3 $(OPTIC) -march=native -ffast-math
+
+# No MKL for gcc (remove -mkl)
+LFLAGS = -lsu -lpar -lcwp -lm -lfftw3f_omp -lfftw3f -fopenmp
+
+all: $(EXES)
+
+# Rule to build each executable
+$(BIN_DIR)/%.exe: $(BUILD_DIR)/%.main.o $(COMMON_OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $^ $(LIB) $(LFLAGS) -o $@
+
+# Rule to build main object files (%.main.o)
+$(BUILD_DIR)/%.main.o: $(MAIN_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+# Rule to build common object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+# Clean object and executable files
+.PHONY: clean
+clean:
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
+
+# Rebuild each executable
+.PHONY: remake
+remake:
+	$(MAKE) clean
+	$(MAKE) -j
+
+# Save intermediate files
+.PRECIOUS: $(COMMON_OBJS) $(MAIN_OBJS)
