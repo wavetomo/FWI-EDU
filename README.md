@@ -92,10 +92,13 @@ FWI-EDU/
 
 ```bash
 cd FWILab2d/FWILab2dCLangV1.2.6
+
 # Use GCC compiler
 ln -sf Makefile.gcc Makefile
+
 # Or use Intel ICC compiler
 # ln -sf Makefile.icc Makefile
+
 make
 ```
 
