@@ -952,14 +952,27 @@ void iso_acoustic2d_propagation(
 
             // Accumulate shot gradient into global gradient and pseudo-Hessian matrix
 #pragma omp parallel for private(ix, iz) \
-    firstprivate(nz, ix_min, ix_max)
+            firstprivate(nz, ix_min, ix_max)
             for (ix = ix_min; ix <= ix_max; ix++)
             {
 #pragma ivdep
                 for (iz = 0; iz < nz; iz++)
                 {
                     grad_cumul[ix][iz] += grad_per_shot[ix - ix_min][iz];
-                    precond_cumul[ix][iz] += precond_per_shot[ix - ix_min][iz];
+                }
+            }
+
+            if(precondition == 1)
+            {
+#pragma omp parallel for private(ix, iz) \
+            firstprivate(nz, ix_min, ix_max)
+                for (ix = ix_min; ix <= ix_max; ix++)
+                {
+#pragma ivdep
+                    for (iz = 0; iz < nz; iz++)
+                    {
+                        precond_cumul[ix][iz] += precond_per_shot[ix - ix_min][iz];
+                    }
                 }
             }
 
@@ -973,8 +986,12 @@ void iso_acoustic2d_propagation(
 
         for (ix = 0; ix < nz * nx; ix++)
             grad[0][ix] = (float)grad_cumul[0][ix];
-        for (ix = 0; ix < nz * nx; ix++)
-            precond[0][ix] = (float)precond_cumul[0][ix];
+
+        if(precondition == 1)
+        {
+            for (ix = 0; ix < nz * nx; ix++)
+                precond[0][ix] = (float)precond_cumul[0][ix];
+        }
 
         // Output
         if (verbose > 0)
