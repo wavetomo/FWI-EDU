@@ -40,7 +40,7 @@ files=$pwd/model_geometry
 work_path=$pwd/modeling_free-surface
 srcfile=$files/ricker_6001_1ms_10Hz_delay0.15ms.bin
 vpfile=$files/vp_00221_00601_12.5m.bin
-rhofie=
+rhofile=
 
 exefile=$pwd/../../bin/acoustic2d_modeling.exe \
 
