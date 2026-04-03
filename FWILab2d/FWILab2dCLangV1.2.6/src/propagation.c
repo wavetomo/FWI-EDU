@@ -616,8 +616,8 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
 #pragma ivdep
                 for (iz = 0; iz < nz; iz++)
                 {
-                precond_cumul[ix][iz] = 4.0 * precond_cumul[ix][iz]  / ((double)(SQR(rhom[ix][iz] * vpm[ix][iz]))); // precondition
-                grad[ix][iz] = (float)precond_cumul[ix][iz];
+                  precond_cumul[ix][iz] = 4.0 * precond_cumul[ix][iz]  / ((double)(SQR(rhom[ix][iz] * vpm[ix][iz]))); // precondition
+                  grad[ix][iz] = (float)precond_cumul[ix][iz];
                 }
             }
         }
@@ -659,11 +659,10 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
                     }
 
                     // load source
-                    p2_fwd[isx][isz] += record2d->src[it] * K[isx][isz] * dt * dt * invdxdx * invdzdz;
+                    p2_fwd[isx][isz] += record2d->src[itt] * K[isx][isz] * dt * dt * invdxdx * invdzdz;
 
                     // save forward wavefield at it+1
-                    if ((itt+1) % mst == 0)
-                        save_acoustic2dWavefield(chkpt, p2_fwd, Np, itt + 1);
+                    save_acoustic2dWavefield(chkpt, p2_fwd, Np, itt + 1);
 
                     // swap wavefield
                     ptmp = p0_fwd;
@@ -709,7 +708,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
 #pragma ivdep
                     for (iz = pmlThick; iz < pmlThick + nz; ++iz)
                     {
-                    grad_cumul[ix - pmlThick][iz - pmlThick] += (double)((p2[ix][iz] - 2.0f * p1[ix][iz] + p0[ix][iz]) * invdtdt * p1_fwd[ix][iz]);
+                      grad_cumul[ix - pmlThick][iz - pmlThick] += (double)((p2[ix][iz] - 2.0f * p1[ix][iz] + p0[ix][iz]) * invdtdt * p1_fwd[ix][iz]);
                     }
                 }
             }
@@ -738,8 +737,8 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
 #pragma ivdep
             for (iz = 0; iz < nz; iz++)
             {
-            grad_cumul[ix][iz] = 2.0 * grad_cumul[ix][iz] / ((double)(rhom[ix][iz] * vpm[ix][iz]));
-            grad[ix][iz] =  (float)grad_cumul[ix][iz];
+              grad_cumul[ix][iz] = 2.0 * grad_cumul[ix][iz] / ((double)(rhom[ix][iz] * vpm[ix][iz]));
+              grad[ix][iz] =  (float)grad_cumul[ix][iz];
             }
         }   
     } /* end mode==2 */
