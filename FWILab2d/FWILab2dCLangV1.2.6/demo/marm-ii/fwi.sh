@@ -84,7 +84,7 @@ $exefile \
     dx=$dx dz=$dz dt=$dt \
     freesurface=$freesurface pmlThick=$pmlThick \
     srcfile=$srcfile vpfile=$vpfile rhofile=$rhofile recordfile=$recordfile \
-    waterdepth=$waterdepth vp_water=$vp_water rho_water=$rho_water Gardner=$Gardner\
+    waterdepth=$waterdepth vp_water=$vp_water rho_water=$rho_water Gardner=$Gardner \
     Nshot=$Nshot \
     vpmin=$vpmin vpmax=$vpmax rhomax=$rhomax rhomin=$rhomin \
     freq=$freq filter=$filter iteration=$iteration rx=$rx rz=$rz \
