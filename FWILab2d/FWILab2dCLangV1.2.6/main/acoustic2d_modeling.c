@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
         }
         if (!getparfloat("fsx", &fsx))
         {
-            fprintf(stderr,"<warning>: didn't specify depth of shots! Set it at No.1 cell.");
+            fprintf(stderr,"<warning>: didn't specify first shot's x-position! Set it at No.1 cell.");
             fsx = 1.0f;
         }
         if (!getparfloat("ds", &ds))
