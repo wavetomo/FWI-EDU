@@ -106,7 +106,7 @@ void acoustic_iso2d_rgfd_parameter(float **vp, float **rho, int nx, int nz,
                                 float **invrhox, float **invrhoz)
 {
     /*
-    acoustic_iso2d_rgfd_parameter: compute acoustic model parameters for 2D grid
+    acoustic_iso2d_rgfd_parameter: compute acoustic model parameters for 2D regular grid finite difference (rgfd)
 
     Input:
         vp[nx][nz]    - velocity model
