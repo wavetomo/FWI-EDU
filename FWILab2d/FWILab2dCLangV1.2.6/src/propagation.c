@@ -581,7 +581,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
                 if (precondition == 1)
                 {
 #pragma omp parallel for private(ix, iz) \
-    firstprivate(Nx, Nz, pmlThick, invdtdt)
+    firstprivate(nx, nz, pmlThick, invdtdt)
                     for (ix = pmlThick; ix < pmlThick + nx; ix++)
                     {
 #pragma ivdep
