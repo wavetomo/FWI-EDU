@@ -67,7 +67,7 @@ end
 
 %% observation define
 if strcmp(jsonfile,'')
-    [sx, sz, Nshot] = generate_shot_positionsx(x, z, fsx, ds, sdepth, Nshot);
+    [sx, sz, Nshot] = generate_shot_positions(x, z, fsx, ds, sdepth, Nshot);
     record2d = init_observe2d(x, z, dt, nt, sx, sz, src, offsmin, offsmax, dtr, gdepth, sampleRate);
 else
     [record2d, Nshot] = init_observe2d_from_json(dt, nt, src, jsonfile, sampleRate);
