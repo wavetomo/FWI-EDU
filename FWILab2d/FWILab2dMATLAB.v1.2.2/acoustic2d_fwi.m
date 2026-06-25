@@ -95,8 +95,8 @@ for k = 1:length(iteration)
         % STEP-LENGTH
         fun1(it) = calculate_objective_value(record2d_pre0);
         scalar = compute_model_perturbation(0.01, slow(:), grad(:));
-        pertub = -scalar.*grad;
-        vp = slow2vp(slow+pertub);
+        perturb = -scalar.*grad;
+        vp = slow2vp(slow+perturb);
         vp(1:waterdepth, :) = vp_water;
         vp = clip_model(vp, vpmin, vpmax);
         if Gardner == 1
@@ -109,7 +109,7 @@ for k = 1:length(iteration)
         fun2(it) =  calculate_objective_value(record2d_pre1);
         steplen = calculate_step_length(record2d_pre0, record2d_pre1);
         % UPDATE
-        slow = slow + steplen * pertub;
+        slow = slow + steplen * perturb;
         %%% slow = smoothdata(slow, 1, 'gaussian', rz(k));
         %%% slow = smoothdata(slow, 2, 'gaussian', rx(k));
         vp = slow2vp(slow);
