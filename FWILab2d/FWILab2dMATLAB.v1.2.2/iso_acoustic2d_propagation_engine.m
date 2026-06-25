@@ -183,7 +183,7 @@ if mode == 0 || mode == 1
         % p2 = coef1 .* p1 + coef2 .* p0 + coef3 .* ...
         %     K .* (invrhox .* dpdx + invrhoz .* dpdz + invrho .* (dpdxdx + dpdzdz));
         % load source
-        p2(isz, isx) = p2(isz, isx) + record2d.src(it) * K(isz, isx) * dt * dt * invdxdx * invdzdz;
+        p2(isz, isx) = p2(isz, isx) + record2d.src(it) * K(isz, isx) * dt * dt * invdx * invdz;
         % free-surface boundary condition
         if freesurface == 1
             p2(pmlThick+1, :) = 0;
@@ -227,7 +227,7 @@ elseif mode == 2
     src = interpolate_traces(record2d.residual_p, record2d.sampleRate);
     for it = nt:-1:1
         % load source
-        p1(ig) = p1(ig) - src(it, :)'.* K(ig) * dt * dt * invdxdx * invdzdz;
+        p1(ig) = p1(ig) - src(it, :)'.* K(ig) * dt * dt * invdx * invdz;
         % finite difference
         for ix = ixStart:ixEnd
             for iz = izStart:izEnd
