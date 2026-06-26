@@ -13,7 +13,7 @@
 void acoustic_iso2d_fd_it_6order(float **restrict p2, float **restrict p1, float **restrict p0,
                                 float **restrict invrho, float **restrict invrhox, float **restrict invrhoz, float **restrict K,
                                 float **restrict coef1, float **restrict coef2, float **restrict coef3,
-                                float invdx, float invdz, float , float invdzdz,
+                                float invdx, float invdz, float invdxdx, float invdzdz,
                                 int ixStart, int ixEnd, int izStart, int izEnd)
 {
 /*  
@@ -33,7 +33,7 @@ Input:
     coef3     - coefficent of finite difference scheme
     invdx     - inverse of grid size along x direction
     invdz     - inverse of grid size along z direction
-       - square of inverse of grid size along x direction
+    invdxdx   - square of inverse of grid size along x direction
     invdzdz   - square of inverse of grid size along z direction
     ixStart   - starting grid index in x-direction for computation
     ixEnd:    - ending grid index in x-direction for computation
@@ -56,7 +56,7 @@ int ix, iz;
 float dpdz, dpdx, dpdzdz, dpdxdx;
 
 #pragma omp parallel for private(ix, iz, dpdz, dpdx, dpdzdz, dpdxdx) \
-    firstprivate(ixStart, ixEnd, izStart, izEnd, invdz, invdx, invdzdz, , C1, C2, C3, D0, D1, D2, D3)
+    firstprivate(ixStart, ixEnd, izStart, izEnd, invdz, invdx, invdzdz, invdxdx, C1, C2, C3, D0, D1, D2, D3)
 for (ix = ixStart; ix <= ixEnd; ++ix)
 {
 #pragma ivdep
@@ -66,7 +66,7 @@ for (ix = ixStart; ix <= ixEnd; ++ix)
     dpdz = (C1 * (p1[ix][iz + 1] - p1[ix][iz - 1]) + C2 * (p1[ix][iz + 2] - p1[ix][iz - 2]) + C3 * (p1[ix][iz + 3] - p1[ix][iz - 3])) * invdz;
     dpdx = (C1 * (p1[ix + 1][iz] - p1[ix - 1][iz]) + C2 * (p1[ix + 2][iz] - p1[ix - 2][iz]) + C3 * (p1[ix + 3][iz] - p1[ix - 3][iz])) * invdx;
     dpdzdz = (D0 * p1[ix][iz] + D1 * (p1[ix][iz + 1] + p1[ix][iz - 1]) + D2 * (p1[ix][iz + 2] + p1[ix][iz - 2]) + D3 * (p1[ix][iz + 3] + p1[ix][iz - 3])) * invdzdz;
-    dpdxdx = (D0 * p1[ix][iz] + D1 * (p1[ix + 1][iz] + p1[ix - 1][iz]) + D2 * (p1[ix + 2][iz] + p1[ix - 2][iz]) + D3 * (p1[ix + 3][iz] + p1[ix - 3][iz])) * ;
+    dpdxdx = (D0 * p1[ix][iz] + D1 * (p1[ix + 1][iz] + p1[ix - 1][iz]) + D2 * (p1[ix + 2][iz] + p1[ix - 2][iz]) + D3 * (p1[ix + 3][iz] + p1[ix - 3][iz])) * invdxdx;
 
     p2[ix][iz] = coef1[ix][iz] * p1[ix][iz] + coef2[ix][iz] * p0[ix][iz] + coef3[ix][iz] * K[ix][iz] * (invrhox[ix][iz] * dpdx + invrhoz[ix][iz] * dpdz + invrho[ix][iz] * (dpdxdx + dpdzdz));
     }
@@ -407,7 +407,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
     float **D, **Beta;
     float **coef1, **coef2, **coef3;
     float dpdz, dpdx, dpdzdz, dpdxdx;
-    float invdx, invdz, , invdzdz, invdtdt;
+    float invdx, invdz, invdxdx, invdzdz, invdtdt;
 
     float **p0, **p1, **p2, **p0_fwd, **p1_fwd, **p2_fwd, **ptmp;
 
@@ -551,7 +551,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
             acoustic_iso2d_fd_it_6order(p2, p1, p0,
                                         invrho, invrhox, invrhoz, K,
                                         coef1, coef2, coef3,
-                                        invdx, invdz, , invdzdz,
+                                        invdx, invdz, invdxdx, invdzdz,
                                         ixStart, ixEnd, izStart, izEnd);
 
             // load source
@@ -649,7 +649,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
                     acoustic_iso2d_fd_it_6order(p2_fwd, p1_fwd, p0_fwd,
                                                 invrho, invrhox, invrhoz, K,
                                                 coef1, coef2, coef3,
-                                                invdx, invdz, , invdzdz,
+                                                invdx, invdz, invdxdx, invdzdz,
                                                 ixStart, ixEnd, izStart, izEnd);
 
                     // free-surface boundary condition
@@ -685,7 +685,7 @@ void iso_acoustic2d_propagation_engine(Record2D *record2d,
             acoustic_iso2d_fd_it_6order(p2, p1, p0,
                                         invrho, invrhox, invrhoz, K,
                                         coef1, coef2, coef3,
-                                        invdx, invdz, , invdzdz,
+                                        invdx, invdz, invdxdx, invdzdz,
                                         ixStart, ixEnd, izStart, izEnd);
 
             // free-surface boundary condition
