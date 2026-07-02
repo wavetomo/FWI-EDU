@@ -45,7 +45,7 @@ char *sdoc[] =  {
     "    pmlThick=       Thickness of the MEAL boundary (unit: cell)",
     "                    [default: 30]",
     "",
-    "    waterdepth=     Depth of water layer (unit: m)",
+    "    waterdepth=     Depth of water layer (unit: cell)",
     "                    [default: 0]",
     "    vp_water=       P-wave velocity in water (unit: m/s)",
     "                    [default: 1500.0]",
@@ -276,7 +276,7 @@ int main(int argc, char *argv[])
     fprintf(stdout, "Source:     srcfile = %s\n", srcfile);
 
     fprintf(stdout, "Water layer:\n");
-    fprintf(stdout, "             depth = %d m\n", waterdepth);
+    fprintf(stdout, "             depth = %d m\n", waterdepth * dz);
     fprintf(stdout, "             vp_water = %.2f m/s\n", vp_water);
     fprintf(stdout, "             rho_water = %.2f kg/m^3\n", rho_water);
 
