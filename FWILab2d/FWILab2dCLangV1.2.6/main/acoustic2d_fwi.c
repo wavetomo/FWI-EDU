@@ -57,7 +57,7 @@ char *sdoc[] = {
     "    rhomin=         Minimum allowed density value [default: 0.001]",
     "",
     "Water Layer Parameters:",
-    "    waterdepth=     Depth of water layer (unit: m) [default: 0]",
+    "    waterdepth=     Depth of water layer (unit: cell) [default: 0]",
     "    vp_water=       P-wave velocity in water (unit: m/s) [default: 1500.0]",
     "    rho_water=      Density in water (unit: kg/m^3) [default: 1000.0]",
     "",
@@ -317,7 +317,7 @@ int main(int argc, char *argv[])
 
     /* Water layer */
     fprintf(stdout, "\n----------------- Water Layer ----------------\n");
-    fprintf(stdout, "Depth = %d m\n", waterdepth);
+    fprintf(stdout, "Depth = %f m\n", waterdepth * dz);
     fprintf(stdout, "P-wave velocity = %.2f m/s\n", vp_water);
     fprintf(stdout, "Density = %.2f kg/m^3\n", rho_water);
 
