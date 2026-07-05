@@ -8,8 +8,8 @@ SRC_DIR = ./src
 MAIN_DIR = ./main
 
 # if $FFTWROOT and $CWPROOT are not set in $PATH, you can set it here
-#FFTWROOT=/usr/share/fftw-3.3.10
-#CWPROOT=/opt/su
+#FFTWROOT=/opt/apps/fftw-3.3.10/
+#CWPROOT=/opt/apps/su
 
 # Find all main source files
 MAIN_SRCS = $(wildcard $(MAIN_DIR)/*.c)
