@@ -11,6 +11,7 @@ The program can be compiled using the provided Makefile. There are two compiler-
 
 - `Makefile.gcc` — for GCC compiler
 - `Makefile.icc` — for Intel ICC compiler
+- `Makefile.icx` — for Intel oneAPI compiler
 
 Before running `make`, create a symbolic link named `Makefile` pointing to the desired compiler Makefile. For example:
 
@@ -20,6 +21,9 @@ ln -sf Makefile.gcc Makefile
 
 # Or use ICC
 # ln -sf Makefile.icc Makefile
+
+# Or use oneAPI
+# ln -sf Makefile.icx Makefile
 ```
 
 After the symbolic link is set, you can use the following commands:
