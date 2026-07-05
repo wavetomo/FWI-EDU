@@ -317,7 +317,7 @@ int main(int argc, char *argv[])
 
     /* Water layer */
     fprintf(stdout, "\n----------------- Water Layer ----------------\n");
-    fprintf(stdout, "Depth = %f m\n", waterdepth * dz);
+    fprintf(stdout, "Depth = %d cell\n", waterdepth);
     fprintf(stdout, "P-wave velocity = %.2f m/s\n", vp_water);
     fprintf(stdout, "Density = %.2f kg/m^3\n", rho_water);
 
