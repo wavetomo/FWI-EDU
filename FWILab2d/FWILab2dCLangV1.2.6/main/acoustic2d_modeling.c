@@ -276,7 +276,7 @@ int main(int argc, char *argv[])
     fprintf(stdout, "Source:     srcfile = %s\n", srcfile);
 
     fprintf(stdout, "Water layer:\n");
-    fprintf(stdout, "             depth = %f m\n", waterdepth * dz);
+    fprintf(stdout, "             depth = %f cell\n", waterdepth);
     fprintf(stdout, "             vp_water = %.2f m/s\n", vp_water);
     fprintf(stdout, "             rho_water = %.2f kg/m^3\n", rho_water);
 
