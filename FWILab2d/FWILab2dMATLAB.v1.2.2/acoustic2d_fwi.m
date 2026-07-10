@@ -40,7 +40,7 @@ rho_water = 1010;
 waterdepth = 36;
 precondition = 1;
 
-parallel = 1;
+parallel = 0;
 verbose = 1;
 
 %% coordinate define
