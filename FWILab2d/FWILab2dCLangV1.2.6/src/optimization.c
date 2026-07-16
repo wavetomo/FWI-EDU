@@ -150,7 +150,7 @@ float calculate_step_length(Record2D *record2d_pre0, Record2D *record2d_pre1, in
     double denominator = 0.0;
     float delta;
 
-#pragma omp parallel for collapse(3) reduction(+ : numerator, denominator) private(ishot, itr, it, delta)
+#pragma omp parallel for reduction(+ : numerator, denominator) private(ishot, itr, it, delta)
     for (ishot = 0; ishot < Nshot; ishot++)
     {
         for (itr = 0; itr < record2d_pre0[ishot].ntr; itr++)
