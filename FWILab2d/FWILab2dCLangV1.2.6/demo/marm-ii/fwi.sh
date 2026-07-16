@@ -73,6 +73,8 @@ verbose=1
 export shotInterval=5
 export snapInterval=1000 # verbose=2
 
+# export OMP_NUM_THREADS=56
+
 rm -rf $work_path
 mkdir -p $work_path
 cd $work_path
