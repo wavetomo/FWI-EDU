@@ -75,7 +75,7 @@ verbose=1
 export shotInterval=5  # interval of outputing shot records
 export snapInterval=1000 
 
-export OMP_NUM_THREAD=1
+export OMP_NUM_THREADS=1
 
 rm -rf $work_path
 mkdir -p $work_path
