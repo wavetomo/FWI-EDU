@@ -157,7 +157,7 @@ void read_bin1d(const char *fileName, int n, float *data)
     // infer n if not provided
     if (n <= 0)
     {
-        int elemSize = get_precision_bytes("float");
+        int elemSize = get_precision_bytes("float32");
         n = count_file_elements(fileName, elemSize);
     }
 
@@ -197,7 +197,7 @@ void read_bin2d(const char *fileName, int n1, int n2, float **data)
     // infer n2 if not provided
     if (n2 <= 0)
     {
-        int elemSize = get_precision_bytes("float");
+        int elemSize = get_precision_bytes("float32");
         int totalElements = count_file_elements(fileName, elemSize);
         if (totalElements % n1 != 0)
         {
@@ -245,7 +245,7 @@ void read_bin3d(const char *fileName, int n1, int n2, int n3, float ***data)
     // infer n3 if not provided
     if (n3 <= 0)
     {
-        int elemSize = get_precision_bytes("float");
+        int elemSize = get_precision_bytes("float32");
         int totalElements = count_file_elements(fileName, elemSize);
         if (totalElements % (n1 * n2) != 0)
         {
