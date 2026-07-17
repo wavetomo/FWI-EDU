@@ -251,12 +251,14 @@ void init_observe2d(Record2D *record2d, int Nshot, float *x, int nx, float *z, i
         record2d   - filled with shot and receiver information 
     */
     
-    int ishot, itrace, it, ioffs, noffs;
+    int ishot, itrace, it, ioffs, noffs, nintervals;
     float offset, gx_abs;
     float *gx_offset;
 
     // Generate receiver offsets relative to shot
-    noffs = (offsmin == 0.0f) ? 2 * ((int)(offsmax - offsmin) / dtr + 1) - 1 : 2 * ((int)(offsmax - offsmin) / dtr + 1);
+    nintervals = (int)lroundf((offsmax - offsmin) / dtr);
+    noffs = 2 * (nintervals + 1) - (offsmin == 0.0f ? 1 : 0);
+    
     gx_offset = alloc1float(noffs);
     ioffs = 0;
     for (offset = -offsmax; offset <= -offsmin; offset += dtr)
