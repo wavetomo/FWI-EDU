@@ -87,7 +87,7 @@ void apply_gradient_shot_precondition(float *grad, float *precond, int n)
     avg = (float)(sum / n);
 
 // Apply preconditioning to gradient and update precond
-#pragma omp parallel for private(i)
+#pragma omp parallel for private(i, factor)
     for (i = 0; i < n; i++)
     {
         factor = 1.0f + precond[i] / (7.0f * avg);
@@ -114,7 +114,7 @@ float calculate_objective_value(Record2D *record2d, int Nshot)
     double fun;
 
     fun = 0.0;
-#pragma omp parallel for reduction(+ : fun)
+#pragma omp parallel for reduction(+ : fun) private(ishot, itrace, it)
     for (ishot = 0; ishot < Nshot; ishot++)
     {
         for (itrace = 0; itrace < record2d[ishot].ntr; itrace++)
@@ -346,7 +346,7 @@ void compute_adjoint_source2d(Record2D *record2d_pre, Record2D *record2d_obs,
 
     // Step 2: Estimate taper parameters based on wave propagation
     vp_sum = 0.0;
-#pragma omp parallel for reduction(+ : vp_sum)
+#pragma omp parallel for reduction(+ : vp_sum) private(itr, ix, iz)
     for (itr = 0; itr < ntr; itr++)
     {
         ix = record2d_adjsource->igx[itr]; 
