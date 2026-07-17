@@ -255,7 +255,7 @@ int main(int argc, char *argv[])
     // Get shot number
     if (!getparint("Nshot", &Nshot))
     {
-        fprintf(stderr,"<error>: didn't specify the number of shots!");
+        err("<error>: didn't specify the number of shots!");
     }
 
     if (!getparint("precondition", &precondition))
