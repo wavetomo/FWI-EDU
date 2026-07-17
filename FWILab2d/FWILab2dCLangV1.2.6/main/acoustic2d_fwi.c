@@ -499,7 +499,7 @@ int main(int argc, char *argv[])
     write_bin(filename, rho[0], nz * nx);
 
     // compute hours, minutes, seconds
-    totalTime = sasum(iterNum, timeCost, 0);
+    totalTime = sasum(iterNum, timeCost, 1);
     hours = (int)(totalTime / 3600);
     minutes = (int)((totalTime - hours * 3600) / 60);
     seconds = totalTime - hours * 3600 - minutes * 60;
