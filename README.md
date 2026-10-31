@@ -140,8 +140,19 @@ For questions or suggestions, please submit an Issue or contact the project main
 
 ## Citation
 
-If you use this project in your research or teaching, please cite the following information:
-- Project name: FWI-EDU: Full Waveform Inversion Educational Tool
-- Version: v1.2.6 (C) / v1.2.2 (MATLAB)
-- Copyright owner: WaveTomo
-- Open source license: MIT License
+If you use **FWI-EDU** (either the C or MATLAB implementation) in research leading to a scientific publication, **please cite the following paper**:
+
+> Wu, D., Yao, G., Chen, Q. Y., Zhang, P. M., & Xu, L. (2026). FWI-EDU: an open-source dual-language framework for understanding full-waveform inversion algorithms and their parallel implementations. *Petroleum Science*. https://doi.org/10.1016/j.petsci.2026.09.026
+
+**BibTeX**
+
+```bibtex
+@article{Wu2026FWIEDU,
+  author  = {Wu, Di and Yao, Gang and Chen, Qu-Yang and Zhang, Ping-Min and Xu, Lin},
+  title   = {{FWI-EDU}: an open-source dual-language framework for understanding full-waveform inversion algorithms and their parallel implementations},
+  journal = {Petroleum Science},
+  year    = {2026},
+  doi     = {10.1016/j.petsci.2026.09.026},
+  url     = {https://doi.org/10.1016/j.petsci.2026.09.026}
+}
+```
