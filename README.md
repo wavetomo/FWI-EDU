@@ -136,7 +136,7 @@ This project is licensed under the [MIT License](LICENSE), copyright (c) 2026 Wa
 
 ## Contact
 
-For questions or suggestions, please submit an Issue or contact the project maintainers.
+For questions or suggestions, please submit an Issue on GitHub or contact us via email at wavetomo@163.com.
 
 ## Citation
 
